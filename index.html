@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BSM Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Tajawal:wght@400;500;700&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--ink:#202124;--mute:#5f6368;--line:#dadce0;--hover:#f1f3f4;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#202124;--ink:#e8eaed;--mute:#9aa0a6;--line:#3c4043;--hover:#303134}}
+:root[data-theme="dark"]{--bg:#202124;--ink:#e8eaed;--mute:#9aa0a6;--line:#3c4043;--hover:#303134}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--ink);font-family:Tajawal,system-ui,sans-serif;font-size:17px}
+header{direction:ltr;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);border-bottom:1px solid var(--line);z-index:5}
+.top{display:flex;align-items:center;gap:20px;padding:10px 16px;overflow-x:auto}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);flex:none}
+.logo span{font:400 27px Lalezar,Tajawal,sans-serif;letter-spacing:.5px}
+.tabs{display:flex;gap:2px;direction:rtl;flex:none}
+.tab{border:0;background:transparent;color:var(--mute);font:500 16px Tajawal,sans-serif;padding:14px 14px 12px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-11px}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.tab:hover{background:var(--hover)}
+.tab:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+main{max-width:640px;margin:0 auto;padding:36px 16px 48px}
+.box{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:999px;padding:6px 20px;height:56px;transition:box-shadow .15s}
+.box:focus-within,.box:hover{box-shadow:0 1px 8px rgba(32,33,36,.28);border-color:transparent}
+.box svg{flex:none;color:var(--mute)}
+#letter{flex:1;min-width:0;border:0;background:transparent;color:var(--ink);font:500 24px Tajawal,sans-serif;outline:0;text-align:right}
+.x{border:0;background:transparent;color:var(--mute);font-size:24px;cursor:pointer;border-radius:50%;width:32px;height:32px}
+.x:hover{background:var(--hover)}
+.btns{display:flex;justify-content:center;gap:10px;margin:22px 0 14px}
+.btn{border:1px solid var(--hover);background:var(--hover);color:var(--ink);font:500 15px Tajawal,sans-serif;padding:10px 18px;border-radius:8px;cursor:pointer}
+.btn:hover{border-color:var(--line)}
+.row{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:6px 0 26px}
+.lt{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--ink);font:500 18px Tajawal,sans-serif;cursor:pointer}
+.lt:hover{background:var(--hover)}
+.lt.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.res{border-top:1px solid var(--line)}
+.cat{padding:16px 2px;border-bottom:1px solid var(--line)}
+.cat b{display:block;font-size:15px;color:var(--mute);font-weight:500;margin-bottom:8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);border-radius:8px;padding:5px 14px;font:inherit;font-size:19px;background:transparent;color:var(--ink);cursor:pointer}.chip:hover{background:var(--hover)}.chip.ok{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.none{color:var(--mute);font-size:15px}
+.empty{color:var(--mute);text-align:center;margin:30px 0}
+
+.drop{border:2px dashed var(--line);border-radius:16px;padding:34px 16px;text-align:center;color:var(--mute);cursor:pointer}
+.drop:hover,.drop.over,.drop:focus-visible{background:var(--hover);border-color:var(--mute)}
+.drop svg{color:var(--ink)}
+.drop p{margin:10px 0 0;line-height:1.7}
+.drop b{color:var(--ink);font-size:19px}
+.rc{display:flex;gap:14px;border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:14px;align-items:flex-start}
+.rc img{width:120px;height:120px;object-fit:cover;border-radius:10px;flex:none;background:var(--hover)}
+.rb{flex:1;min-width:0}
+.pl{margin:0 0 2px;font-size:21px;font-weight:700}
+.sub2{color:var(--mute);margin-bottom:8px}
+.meta{display:flex;gap:14px;flex-wrap:wrap;font-size:14px;color:var(--mute);margin:6px 0}
+.bar{height:6px;border-radius:3px;background:var(--hover);overflow:hidden;margin:4px 0 10px}
+.bar i{display:block;height:100%;background:var(--ink)}
+.rb ul{margin:6px 0;padding-inline-start:20px;font-size:15px;line-height:1.7}
+.rb h4{margin:12px 0 2px;font-size:14px;color:var(--mute);font-weight:500}
+.lk{display:inline-block;margin-top:10px;text-decoration:none}
+@media (max-width:520px){.rc{flex-direction:column}.rc img{width:100%;height:180px}}
+.hd{display:flex;gap:12px;align-items:center;margin-bottom:6px}
+.fl{font-size:44px;line-height:1}
+.ex{margin:10px 0 12px;line-height:1.8}
+.ar{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--line)}
+.afl{font-size:22px}
+.pp{margin-inline-start:auto;color:var(--mute);font-weight:500}
+.hm{min-width:0}
+.cr{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cn{font-size:26px;font-weight:700}
+.pn{font-size:17px;margin-top:2px;color:var(--mute);font-family:Lalezar,Tajawal,sans-serif;letter-spacing:.3px}
+.cp{padding:4px 12px;font-size:14px;border-radius:999px}
+.am{min-width:0}.acn{font-weight:700}.apn{font-size:14px;color:var(--mute)}
+.ar .pp{margin-inline-start:auto}
+.fl,.afl{font-family:"Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji",sans-serif}
+.kb{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 16px;padding:12px;border:1px solid var(--line);border-radius:12px}
+.kb input{flex:1;min-width:200px;border:1px solid var(--line);border-radius:8px;padding:9px 12px;background:transparent;color:var(--ink);font:inherit;font-size:15px}
+.kb p{flex-basis:100%;margin:0}
+.kb select{border:1px solid var(--line);border-radius:8px;padding:9px 10px;background:var(--bg);color:var(--ink);font:inherit;font-size:15px}
+.sg{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.sgt{color:var(--mute);min-width:90px}
+.sgb{border:1px solid var(--line);background:transparent;color:var(--ink);font:700 16px Tajawal,sans-serif;padding:8px 20px;border-radius:999px;cursor:pointer}
+.sgb[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.xb{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;direction:ltr;max-width:330px;margin:18px auto}
+.xc{aspect-ratio:1;border:2px solid var(--line);border-radius:14px;background:transparent;color:var(--ink);font:700 54px Tajawal,sans-serif;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;padding:0}
+.xc:hover{background:var(--hover)}
+.xc small{font-size:14px;font-weight:500;color:var(--mute);margin-top:4px}
+.xc.best{border-color:var(--ink);border-width:3px;background:var(--hover)}
+.xs{text-align:center;font-size:18px;margin:8px 0}
+.xr{display:flex;justify-content:space-between;gap:10px;padding:9px 2px;border-top:1px solid var(--line);font-size:15px}
+.xr span:last-child{color:var(--mute);text-align:left}
+.xn{color:var(--mute);font-size:14px;margin:10px 0}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <a class="logo" href="#" aria-label="BSM Tools">
+      <img src="data:image/png;base64,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" width="34" height="34" alt="" style="border-radius:8px;display:block">
+      <span>BSM Tools</span>
+    </a>
+    <nav class="tabs" role="tablist" id="tabs"></nav>
+  </div>
+</header>
+<main id="view"></main>
+<script>
+var L="ابتثجحخدذرزسشصضطظعغفقكلمنهوي".split("");
+// جماد | حيوان | اسم إنسان | نبات | دولة
+var D={
+"ا":"أريكة،إبريق،أكواب،أقلام،أبواب|أسد،أرنب،أخطبوط،أفعى،أيّل|أحمد،أمل،أسماء،أنس،آية|أناناس،أرز،أفوكادو،أقحوان،إجاص|الأردن،الإمارات،أمريكا،أستراليا،الأرجنتين",
+"ب":"باب،بطانية،برواز،بوصلة،بالون|بطة،بقرة،بجعة،بومة،ببغاء|بدر،بسمة،بشرى،بسام،بتول|بصل،بطيخ،بازلاء،بامية،بندق|البحرين،بلجيكا،البرازيل،بولندا،بريطانيا",
+"ت":"تلفاز،تاج،تقويم،تلسكوب،تابوت|تمساح،تيس،تونة،توكان،تنين|تالا،تركي،تماضر،توفيق،تسنيم|تفاح،تمر،توت،تين،ترنج|تونس،تركيا،تايلاند،تنزانيا،توغو",
+"ث":"ثلاجة،ثوب،ثريا،ثقل،ثلج|ثعبان،ثور،ثعلب،ثيتل|ثامر،ثريا،ثناء،ثائر،ثروت|ثوم،ثمر،ثيل،ثمام|-",
+"ج":"جدار،جرس،جهاز،جزمة،جريدة|جمل،جاموس،جرادة،جرذ،جمبري|جود،جميلة،جمال،جواهر،جابر|جزر،جوافة،جرجير،جوز،جريب فروت|الجزائر،جيبوتي،جامايكا،جورجيا،جزر القمر",
+"ح":"حائط،حقيبة،حبل،حذاء،حاسوب|حصان،حمامة،حمار،حلزون،حوت|حسن،حنان،حمد،حصة،حمزة|حمص،حبق،حلبة،حنظل،حنطة|-",
+"خ":"خزانة،خاتم،خيمة،خشب،خريطة|خروف،خفاش،خنزير،خيل،خُلد|خالد،خديجة،خليل،خلود،خولة|خيار،خوخ،خس،خردل،خروب|-",
+"د":"دولاب،دفتر،دراجة،دبوس،دلو|دب،دجاجة،دلفين،دودة،دعسوقة|دانة،دلال،دانا،داوود،دعاء|دراق،دخن،دفلى،دباء،دوّار الشمس|الدنمارك،دومينيكا",
+"ذ":"ذهب،ذخيرة،ذراع،ذبذبة|ذئب،ذبابة،ذيب،ذرّة بحرية|ذكرى،ذياب،ذكاء،ذاكر|ذرة،ذيل الحصان|-",
+"ر":"رخام،رف،رادار،رغيف،ريشة|رخمة،رنجة،ربيان،رنة،رأل|ريم،رامي،رنا،رياض،ريان|رمان،ريحان،رز،رشاد،رمث|روسيا،رواندا،رومانيا",
+"ز":"زجاج،زجاجة،زر،زورق،زينة|زرافة،زنبور،زرزور،زاحف،زمج|زياد،زينب،زهرة،زيد،زكريا|زيتون،زعتر،زنجبيل،زعفران،زهرة|زامبيا،زيمبابوي",
+"س":"سرير،ساعة،سيارة،سجادة،سماعة|سمكة،سلحفاة،سنجاب،سلطعون،سحلية|سارة،سعود،سلمى،سلطان،سعاد|سفرجل،سبانخ،سمسم،سدر،سوسن|السعودية،السودان،سوريا،سويسرا،السويد",
+"ش":"شباك،شمعة،شنطة،شوكة،شاشة|شمبانزي،شيهم،شاة،شبل،شرغوف|شهد،شادي،شهاب،شيماء،شهم|شمام،شعير،شمندر،شاي،شوفان|-",
+"ص":"صابون،صندوق،صحن،صورة،صنبور|صقر،صرصور،صل،صرد،صدفة|صالح،صفاء،صباح،صقر،صفية|صنوبر،صبار،صفصاف،صعتر|الصومال،الصين",
+"ض":"ضوء،ضفيرة،ضمادة،ضاغط|ضبع،ضفدع،ضب،ضأن|ضحى،ضياء،ضرار،ضيف|ضرو|-",
+"ط":"طاولة،طبق،طابعة،طبل،طائرة|طاووس،طائر،طيهوج،طنان|طلال،طيف،طارق،طيبة|طماطم،طحلب،طرخون،طلح|-",
+"ظ":"ظرف،ظل،ظفر|ظبي،ظربان،ظبية|ظافر،ظلال،ظريف|-|-",
+"ع":"عصا،علبة،عجلة،عقد،عطر|عصفور،عقرب،عنكبوت،عجل،عندليب|عمر،عائشة،علي،عبير،عبدالله|عنب،عدس،عشب،عوسج،عرعر|عُمان،العراق",
+"غ":"غرفة،غسالة،غطاء،غربال|غزال،غراب،غوريلا،غرير|غادة،غيث،غالية،غسان|غار،غاردينيا،غاف،غرقد|غانا،غينيا",
+"ف":"فرن،فنجان،فرشاة،فستان،فانوس|فيل،فأر،فراشة،فهد،فرس|فاطمة،فيصل،فرح،فارس،فهد|فراولة،فلفل،فجل،فول،فستق|فرنسا،فلسطين،فنلندا،الفلبين،فيتنام",
+"ق":"قلم،قدر،قفل،قبعة،قارب|قط،قرد،قنفذ،قرش،قندس|قاسم،قمر،قيس،قدس|قرنفل،قمح،قرع،قرنبيط،قصب|قطر،قبرص،قيرغيزستان",
+"ك":"كرسي،كوب،كتاب،كاميرا،كنبة|كلب،كنغر،كركدن،كوالا،كناري|كريم،كوثر،كمال،كوكب،كاظم|كوسا،كرز،كمثرى،كرنب،كزبرة|الكويت،كندا،كوبا،كولومبيا،كينيا",
+"ل":"لوح،لمبة،لحاف،لوحة،لعبة|ليمور،لقلق،ليث،لبؤة،لاما|ليلى،لؤي،لجين،لانا،لبنى|ليمون،لوز،لوبيا،لفت،لافندر|لبنان،ليبيا،لاتفيا،لوكسمبورغ",
+"م":"مكتب،مرآة،مفتاح،مظلة،مقص|ماعز،مها،مهر،ميرقاط،ماموث|محمد،مريم،منى،ماجد،مشاعل|موز،مشمش،ملفوف،مانجو،ميرمية|مصر،المغرب،ماليزيا،المكسيك،موريتانيا",
+"ن":"نافذة،نظارة،ناي،نجمة،نقود|نمر،نحلة،نمل،نسر،نعامة|نورة،ناصر،نادر،نوف،نجلاء|نخيل،نعناع،نرجس،نبق،نارنج|النرويج،نيجيريا،نيوزيلندا،النمسا،نيبال",
+"ه":"هاتف،هرم،هاون،هلال،هدية|هدهد،هامستر،هرة،هزبر|هند،هادي،هالة،هاشم،هيفاء|هليون،هندباء،هيل|الهند،هولندا،هنغاريا،هندوراس",
+"و":"وسادة،وعاء،وتد،ورقة،وشاح|وزّ،وعل،وطواط،وشق،ورل|وليد،وفاء،وسام،وعد،وجدان|ورد،ورق عنب،ورس|-",
+"ي":"ياقوت،يخت،يافطة،يد|يمامة،يعسوب،يربوع،يحموم|يوسف،ياسمين،يزيد،يارا،يحيى|يقطين،يانسون،يلنجوج|اليمن،اليابان"};
+var CATS=["جماد","حيوان","اسم إنسان","نبات","دولة"];
+function norm(c){c=(c||"").trim().slice(-1);if("أإآ".indexOf(c)>-1)c="ا";if(c=="ى")c="ي";if(c=="ة")c="ت";return c}
+function answers(ch){var d=D[ch];if(!d)return '<p class="empty">اكتب حرف عربي وبطلع لك الإجابات</p>';
+ return '<div class="res">'+d.split("|").map(function(s,i){
+  var items=s=="-"?'<span class="none">ما فيه غالباً</span>':s.split("،").map(function(w){return '<button class="chip" title="نسخ">'+w+'</button>'}).join("");
+  return '<div class="cat"><b>'+CATS[i]+'</b><div class="chips">'+items+'</div></div>'}).join("")+'</div>'}
+
+// ===== Games: add new tabs here =====
+var GAMES=[{id:"words",name:"ريبلكا",render:wordsGame},{id:"maps",name:"خمن",render:lensGame},{id:"xo",name:"اكس او",render:xoGame}];
+var cur="words",curLetter="";
+
+function wordsGame(el){
+ el.innerHTML='<div class="box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>'+
+ '<input id="letter" maxlength="3" autocomplete="off" placeholder="اكتب حرف..." aria-label="الحرف"><button class="x" id="clr" aria-label="مسح">×</button></div>'+
+ '<div class="btns"><button class="btn" id="go">بحث</button><button class="btn" id="rnd">حرف عشوائي</button></div>'+
+ '<div class="row" id="lts"></div><div id="out"></div>';
+ var lts=el.querySelector("#lts"),out=el.querySelector("#out"),inp=el.querySelector("#letter");
+ function set(c){curLetter=c;inp.value=c;out.innerHTML=answers(c);
+  [].forEach.call(lts.children,function(b){b.classList.toggle("on",b.textContent==c)})}
+ L.forEach(function(c){var b=document.createElement("button");b.className="lt";b.textContent=c;b.onclick=function(){set(c)};lts.appendChild(b)});
+ out.onclick=function(e){var c=e.target.closest(".chip");if(!c)return;copyTxt(c.textContent).then(function(){c.classList.add("ok");setTimeout(function(){c.classList.remove("ok")},700)})};
+ inp.oninput=function(){set(norm(inp.value))};
+ inp.onkeydown=function(e){if(e.key=="Enter")set(norm(inp.value))};
+ el.querySelector("#go").onclick=function(){set(norm(inp.value))};
+ el.querySelector("#clr").onclick=function(){set("");inp.focus()};
+ el.querySelector("#rnd").onclick=function(){set(L[Math.floor(Math.random()*L.length)])};
+ set(curLetter)}
+
+var pasteH=null;
+function h(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function copyTxt(t){if(navigator.clipboard&&navigator.clipboard.writeText)return navigator.clipboard.writeText(t);
+ return new Promise(function(ok){var x=document.createElement("textarea");x.value=t;document.body.appendChild(x);x.select();try{document.execCommand("copy")}catch(e){}x.remove();ok()})}
+function toPng(b){return new Promise(function(ok,no){var im=new Image(),u=URL.createObjectURL(b);im.onload=function(){var c=document.createElement("canvas");c.width=im.width;c.height=im.height;c.getContext("2d").drawImage(im,0,0);URL.revokeObjectURL(u);c.toBlob(function(x){x?ok(x):no()},"image/png")};im.onerror=no;im.src=u})}
+async function lensGo(b,body){
+ var st=h("p","none","جاري التجهيز…"),btn=h("button","btn","انسخ الصورة وافتح Lens مرة ثانية");
+ async function go(){var ok=false;
+  try{var png=await toPng(b);await navigator.clipboard.write([new ClipboardItem({"image/png":png})]);ok=true}catch(e){}
+  window.open("https://lens.google.com/?hl=ar","_blank");
+  st.textContent=ok?"نسخت الصورة وفتحت Google Lens في المتصفح. اضغط Ctrl+V في صفحة Lens وبيبحث عنها.":"فتحت Google Lens، لكن ما قدرت أنسخ الصورة تلقائياً. اضغط الزر تحت للمحاولة، أو ارفع الصورة يدوياً في صفحة Lens."}
+ var q=h("button","btn","انسخ السؤال: ما اسم الدولة؟"),row=h("div");row.style.cssText="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px";
+ q.onclick=function(){copyTxt("ما اسم الدولة في هذه الصورة؟").then(function(){q.textContent="تم النسخ ✓";setTimeout(function(){q.textContent="انسخ السؤال: ما اسم الدولة؟"},1500)})};
+ btn.onclick=go;row.append(btn,q);body.append(st,row);go()}
+function lensGame(el){
+ var box=h("div","drop");box.tabIndex=0;
+ box.innerHTML='<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><p><b>الصق صورة هنا</b><br>Ctrl+V أو اسحب الصورة أو اضغط للاختيار<br>وبنسخها وأفتح لك Google Lens في المتصفح</p>';
+ var file=h("input");file.type="file";file.accept="image/*";file.hidden=true;
+ var wrap=h("div","btns"),pb=h("button","btn","لصق من الحافظة"),list=h("div");wrap.appendChild(pb);
+ el.innerHTML="";el.append(box,file,wrap,list);
+ function add(bs){bs.filter(function(b){return b&&/^image\//.test(b.type)}).slice(0,1).forEach(function(b){
+  var c=h("div","rc"),im=h("img"),body=h("div","rb");im.src=URL.createObjectURL(b);im.alt="";c.append(im,body);list.prepend(c);lensGo(b,body)})}
+ box.onclick=function(){file.click()};
+ box.onkeydown=function(e){if(e.key=="Enter"||e.key==" "){e.preventDefault();file.click()}};
+ file.onchange=function(){add([].slice.call(file.files));file.value=""};
+ box.ondragover=function(e){e.preventDefault();box.classList.add("over")};
+ box.ondragleave=function(){box.classList.remove("over")};
+ box.ondrop=function(e){e.preventDefault();box.classList.remove("over");add([].slice.call(e.dataTransfer.files))};
+ pasteH=function(e){var fs=[].slice.call(e.clipboardData.files||[]);
+  if(!fs.length)[].forEach.call(e.clipboardData.items||[],function(i){if(i.kind=="file")fs.push(i.getAsFile())});
+  if(fs.length){e.preventDefault();add(fs)}};
+ document.addEventListener("paste",pasteH);
+ pb.onclick=function(){
+  if(!navigator.clipboard||!navigator.clipboard.read){list.prepend(h("p","none","استخدم Ctrl+V أو اختر الصورة من الجهاز"));return}
+  navigator.clipboard.read().then(function(items){items.forEach(function(it){var t=it.types.filter(function(x){return /^image\//.test(x)})[0];if(t)it.getType(t).then(function(b){add([b])})})})
+  .catch(function(){list.prepend(h("p","none","المتصفح ما سمح بالقراءة، استخدم Ctrl+V أو اختر الصورة من الجهاز"))})}}
+
+var LN=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+var XN=["زاوية فوق يسار","فوق في النص","زاوية فوق يمين","يسار في النص","الوسط","يمين في النص","زاوية تحت يسار","تحت في النص","زاوية تحت يمين"];
+function winner(b){for(var i=0;i<8;i++){var l=LN[i];if(b[l[0]]&&b[l[0]]==b[l[1]]&&b[l[0]]==b[l[2]])return b[l[0]]}return ""}
+function xoGame(el){
+ var st={me:"X",first:"me",b:["","","","","","","","",""],hist:[]},memo={},pm={};
+ function opp(){return st.me=="X"?"O":"X"}
+ function empt(b){var e=[];for(var i=0;i<9;i++)if(!b[i])e.push(i);return e}
+ function prob(b,my){var w=winner(b);if(w)return w==st.me?[1,0,0]:[0,0,1];var e=empt(b);if(!e.length)return [0,1,0];
+  var k=b.join("|")+my;if(memo[k])return memo[k];var r;
+  if(my){var best=null,bs=-9;e.forEach(function(i){b[i]=st.me;var v=prob(b,false);b[i]="";var sc=v[0]+v[1]*.5-v[2]*.001;if(sc>bs){bs=sc;best=v}});r=best}
+  else{r=[0,0,0];e.forEach(function(i){b[i]=opp();var v=prob(b,true);b[i]="";r[0]+=v[0]/e.length;r[1]+=v[1]/e.length;r[2]+=v[2]/e.length})}
+  return memo[k]=r}
+ function perf(b,my){var w=winner(b);if(w)return w==st.me?1:-1;var e=empt(b);if(!e.length)return 0;
+  var k=b.join("|")+my;if(pm[k]!==undefined)return pm[k];var best=my?-2:2;
+  e.forEach(function(i){b[i]=my?st.me:opp();var v=perf(b,!my);b[i]="";best=my?Math.max(best,v):Math.min(best,v)});
+  return pm[k]=best}
+ function myTurn(){var n=st.b.filter(Boolean).length,f=st.first=="me";return n%2==0?f:!f}
+ var root=h("div");el.innerHTML="";el.appendChild(root);
+ function seg(t,opts,get,set){var w=h("div","sg");w.appendChild(h("span","sgt",t));
+  opts.forEach(function(o){var b=h("button","sgb",o[1]);b.setAttribute("aria-pressed",String(get()==o[0]));b.onclick=function(){set(o[0]);reset()};w.appendChild(b)});return w}
+ function reset(){st.b=["","","","","","","","",""];st.hist=[];memo={};pm={};render()}
+ function pc(x){return Math.round(x*100)+"%"}
+ function render(){root.innerHTML="";
+  root.appendChild(seg("أنت تلعب بـ",[["X","X"],["O","O"]],function(){return st.me},function(v){st.me=v}));
+  root.appendChild(seg("من يبدأ؟",[["me","أنا"],["opp","الخصم"]],function(){return st.first},function(v){st.first=v}));
+  var w=winner(st.b),e=empt(st.b),mine=myTurn(),sug=[];
+  if(!w&&e.length&&mine){e.forEach(function(i){st.b[i]=st.me;sug.push({i:i,p:prob(st.b,false),f:perf(st.b,false)});st.b[i]=""});
+   sug.sort(function(a,b){return (b.p[0]+b.p[1]*.5-b.p[2]*.001)-(a.p[0]+a.p[1]*.5-a.p[2]*.001)})}
+  var msg=w?(w==st.me?"فزت! 🎉":"فاز الخصم"):!e.length?"تعادل":mine?"دورك. الخانة المميزة هي الأفضل، اضغط عليها لما تلعبها":"دور الخصم. اضغط على الخانة اللي لعبها";
+  root.appendChild(h("p","xs",msg));
+  var bd=h("div","xb");
+  for(var i=0;i<9;i++)(function(i){var c=h("button","xc"),sg=sug.filter(function(x){return x.i==i})[0];
+   c.setAttribute("aria-label",XN[i]);
+   if(st.b[i])c.textContent=st.b[i];else if(sg){c.appendChild(h("small",0,pc(sg.p[0])));if(sug[0].i==i)c.classList.add("best")}
+   c.onclick=function(){if(st.b[i]||winner(st.b))return;st.b[i]=mine?st.me:opp();st.hist.push(i);render()};bd.appendChild(c)})(i);
+  root.appendChild(bd);
+  if(sug.length){var bs=sug[0],lb=bs.f==1?"فوز مضمون":bs.f==0?"تعادل":"خسارة إذا لعب الخصم صح";
+   root.appendChild(h("p","xs","أفضل خطوة: "+XN[bs.i]));
+   root.appendChild(h("p","xn","مع لعب مثالي من الطرفين: "+lb+". الرقم داخل الخانة هو نسبة فوزك."));
+   sug.forEach(function(x){var r=h("div","xr");r.append(h("span",0,XN[x.i]),h("span",0,"فوز "+pc(x.p[0])+"، تعادل "+pc(x.p[1])+"، خسارة "+pc(x.p[2])));root.appendChild(r)});
+   root.appendChild(h("p","xn","النسب تفترض إن الخصم يلعب عشوائي، وإنك تلعب أفضل خطوة بعدها."))}
+  var bt=h("div","btns"),u=h("button","btn","تراجع"),r=h("button","btn","لعبة جديدة");
+  u.onclick=function(){var l=st.hist.pop();if(l!==undefined){st.b[l]="";render()}};r.onclick=reset;bt.append(u,r);root.appendChild(bt)}
+ render()}
+
+function draw(){if(pasteH){document.removeEventListener("paste",pasteH);pasteH=null}var t=document.getElementById("tabs");t.innerHTML="";
+ GAMES.forEach(function(g){var b=document.createElement("button");b.className="tab";b.setAttribute("role","tab");
+  b.setAttribute("aria-selected",g.id==cur);b.textContent=g.name;b.onclick=function(){cur=g.id;draw()};t.appendChild(b)});
+ GAMES.filter(function(g){return g.id==cur})[0].render(document.getElementById("view"))}
+draw();
+</script>
+</body>
+</html>
