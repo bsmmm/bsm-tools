@@ -9,8 +9,8 @@
 حمّل آخر نسخة من تبويب Releases.
 
 ## التشغيل من الكود
-npm install
-npm start
+- npm install
+- npm start
 
 ## الترخيص
 MIT
